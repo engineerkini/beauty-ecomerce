@@ -1,3 +1,4 @@
+
 // src/components/products/NewProductForm.jsx
 import React, { useState } from "react";
 import { Upload } from "lucide-react";
