@@ -10,6 +10,7 @@ const Sidebar = ({ isOpen, onNavigate }) => (
           {[
             { name: 'Dashboard', icon: TrendingUp, path: 'dashboard' },
             { name: 'Products', icon: Package, path: 'products' },
+            { name: 'Orders', icon: ShoppingCart, path: 'orders' },
             { name: 'Customers', icon: Users, path: 'customers' }
           ].map(({ name, icon: Icon, path }) => (
             <a

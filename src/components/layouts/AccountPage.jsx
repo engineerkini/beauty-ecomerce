@@ -27,7 +27,7 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-start justify-center h-full min-h-screen w-full p-4 lg:p-6 mt-20">
+    <div className="flex flex-col lg:flex-row items-start justify-center h-full min-h-screen w-full p-4 lg:p-6">
       <div className="lg:flex w-full max-w-4xl">
         <div className="lg:w-1/3 h-full mb-4 lg:mb-0 mr-0 lg:mr-4 border p-4 rounded bg-white shadow w-full">
           <div className="space-y-2">

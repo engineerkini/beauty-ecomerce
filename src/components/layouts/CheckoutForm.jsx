@@ -15,7 +15,6 @@ const CheckoutForm = ({ cartItems, updateQuantity }) => {
     postalCode: "",
     phone: "",
   });
-  const url ="http://127.0.0.1:8080"
 
   const handleInputChange = (e) => {
     const { name, type, checked, value } = e.target;
@@ -27,6 +26,7 @@ const CheckoutForm = ({ cartItems, updateQuantity }) => {
 
   const handlePaymentMethodClick = (method) => {
     setSelectedPaymentMethod(method);
+    window.location.href = "http://localhost:5000/pay/paypal";
   };
 
   const handleCheck = () => {
@@ -291,10 +291,7 @@ const CheckoutForm = ({ cartItems, updateQuantity }) => {
               <button
                 type="button"
                 className="w-full flex items-center justify-center bg-green-600 text-white font-medium py-3 rounded-md hover:bg-green-700"
-                
-                onClick={() => {
-                  window.location.href = `${url}/pay/mpesa`;
-                  handlePaymentMethodClick("M-Pesa")}}
+                onClick={() => handlePaymentMethodClick("M-Pesa")}
               >
                 <img
                   src="data:image/png;base64,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"
@@ -307,7 +304,7 @@ const CheckoutForm = ({ cartItems, updateQuantity }) => {
                 type="button"
                 className="w-full flex items-center justify-center bg-blue-600 text-white font-medium py-3 rounded-md hover:bg-blue-700"
                 onClick={() => {
-                  window.location.href = `${url}/pay/paypal`;
+                  window.location.href = "http://localhost:5000/pay/paypal";
                   handlePaymentMethodClick("PayPal"); 
                 }}
               >
