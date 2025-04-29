@@ -77,7 +77,7 @@ const ProductShowcase = () => {
         {/* Left Content */}
         <div className="flex flex-col justify-center space-y-6 md:w-1/2">
           <h1 className="text-h1 leading-h1 font-[500] text-text-color2">
-          Floral Essence Masks Sets
+            Floral Essence Masks Sets
           </h1>
 
           <p className="text-text-color1 leading-relaxed">
