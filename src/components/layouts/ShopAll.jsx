@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
-import Ultrafilter from "./ultrafilter";
+//import Ultrafilter from Ultrafilter;
 import DataTable from "../common/Datatable";
 
 function ShopAll({ addToCart }) {
