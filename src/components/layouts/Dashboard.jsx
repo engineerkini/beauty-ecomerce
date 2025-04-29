@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import ProductsPageDashboard from "../common/ProductPageDahboard";
-
+import React, { useState, useEffect } from "react";
 import {
   ShoppingCart,
   Users,
@@ -15,6 +13,7 @@ import {
   ShoppingBag,
   UserPlus,
 } from "lucide-react";
+import ProductsPageDashboard from "../common/ProductPageDahboard";
 import CustomersPageDashboard from "../common/CustomerPageDashboard";
 import StatsCard from "../common/StatsCard";
 import OrdersPageDashboard from "../common/OrdersPageDashboard";
@@ -22,6 +21,36 @@ import OrdersPageDashboard from "../common/OrdersPageDashboard";
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard"); // State for active tab
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalCustomers, setTotalCustomers] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const fetchStats = async () => {
+    try {
+      const [productsResponse, customersResponse] = await Promise.all([
+        fetch("http://127.0.0.1:8080/products"),
+        fetch("http://127.0.0.1:8080/customers"),
+      ]);
+
+      if (!productsResponse.ok || !customersResponse.ok) {
+        throw new Error("Failed to fetch data.");
+      }
+
+      const productsData = await productsResponse.json();
+      const customersData = await customersResponse.json();
+
+      setTotalProducts(productsData.products?.length || 0);
+      setTotalCustomers(customersData.customers?.length || 0);
+    } catch (error) {
+      console.error("Error fetching stats:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -48,14 +77,14 @@ const Dashboard = () => {
             />
             <StatsCard
               title="Total Products"
-              value="245"
+              value={loading ? "Loading..." : totalProducts}
               icon={Package}
               trend={-2.4}
             />
             <StatsCard
-              title="New Customers"
-              value="38"
-              icon={UserPlus}
+              title="Total Customers"
+              value={loading ? "Loading..." : totalCustomers}
+              icon={Users}
               trend={4.6}
             />
           </div>
@@ -78,7 +107,9 @@ const Dashboard = () => {
               </button>
               <div className="ml-4 flex items-center">
                 <ShoppingBag className="h-6 w-6 text-blue-500" />
-                <span className="ml-2 text-xl font-semibold">ShopDash</span>
+                <span className="text-blue-500 text-xl font-semibold ml-auto md:ml-28 md:pl-8">
+                  Bloom Beauty
+                </span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -139,17 +170,6 @@ const Dashboard = () => {
               >
                 <Package className="h-5 w-5" />
                 <span className="ml-3">Products</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("orders")}
-                className={`flex items-center px-4 py-3 ${
-                  activeTab === "orders"
-                    ? "text-blue-600 bg-blue-50"
-                    : "text-gray-600"
-                } hover:bg-gray-50 rounded-lg`}
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="ml-3">Orders</span>
               </button>
               <button
                 onClick={() => setActiveTab("customers")}
