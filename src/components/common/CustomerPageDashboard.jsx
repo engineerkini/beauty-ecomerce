@@ -6,7 +6,7 @@ const CustomersPageDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_URL = "https://bloomm-backend-2.onrender.com/customers";
+  const API_URL = "http://127.0.0.1:8080/customers";
 
   useEffect(() => {
     fetchCustomers();
@@ -25,10 +25,11 @@ const CustomersPageDashboard = () => {
       setLoading(false);
     }
   };
+  
 
   const customerColumns = [
     { key: "first_name", title: "Name" },
-    { key: "last_name", title: "Last Name" },
+    { key: "last_name", title: "Last Name"},
     { key: "phone_number", title: "Phone Number" },
     { key: "email", title: "Email" },
     { key: "address", title: "Address" },

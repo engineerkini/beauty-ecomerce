@@ -76,10 +76,7 @@ function App() {
     <>
       {showHeaderFooter && <Header toggleCart={toggleCart} />}
       <Routes>
-        <Route
-          path="/signup"
-          element={<Signup setIsAuthenticated={setIsAuthenticated} />}
-        />
+        <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />

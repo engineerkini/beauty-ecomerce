@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
-//import Ultrafilter from Ultrafilter;
+import Ultrafilter from "./ultrafilter";
 import DataTable from "../common/Datatable";
 
 function ShopAll({ addToCart }) {
@@ -11,7 +11,7 @@ function ShopAll({ addToCart }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://bloomm-backend-2.onrender.com/products")
+    fetch("http://127.0.0.1:8080/products")
       .then((response) => response.json())
       .then((data) => {
         const productsList = data.products || [];
@@ -27,12 +27,8 @@ function ShopAll({ addToCart }) {
 
   const handleFilterChange = (minPrice, maxPrice) => {
     const filtered = products.filter((product) => {
-      const matchesMinPrice = minPrice
-        ? product.price >= Number(minPrice)
-        : true;
-      const matchesMaxPrice = maxPrice
-        ? product.price <= Number(maxPrice)
-        : true;
+      const matchesMinPrice = minPrice ? product.price >= Number(minPrice) : true;
+      const matchesMaxPrice = maxPrice ? product.price <= Number(maxPrice) : true;
       return matchesMinPrice && matchesMaxPrice;
     });
     setFilteredProducts(filtered);
@@ -47,7 +43,11 @@ function ShopAll({ addToCart }) {
   }
 
   if (error) {
-    return <p className="text-lg text-center text-red-600">{error}</p>;
+    return (
+      <p className="text-lg text-center text-red-600">
+        {error}
+      </p>
+    );
   }
 
   if (filteredProducts.length === 0) {
@@ -57,17 +57,17 @@ function ShopAll({ addToCart }) {
       </p>
     );
   }
-  <DataTable
-    data={filteredProducts}
-    columns={[
-      { key: "id", title: "ID" },
-      { key: "product_name", title: "Product Name" },
-      { key: "price", title: "Price" },
-      { key: "actions", title: "Actions" },
-    ]}
-    onEdit={(row) => console.log("Edit", row)}
-    onDelete={(id) => console.log("Delete", id)}
-  />;
+  <DataTable 
+  data={filteredProducts} 
+  columns={[
+    { key: 'id', title: 'ID' },
+    { key: 'product_name', title: 'Product Name' },
+    { key: 'price', title: 'Price' },
+    { key: 'actions', title: 'Actions' }
+  ]} 
+  onEdit={(row) => console.log('Edit', row)}
+  onDelete={(id) => console.log('Delete', id)}
+/>
 
   return (
     <div className="max-w-screen-xl mx-auto p-6 mt-20">
@@ -99,11 +99,7 @@ function ShopAll({ addToCart }) {
                         <Star
                           key={index}
                           className="w-4 h-4 text-gray-300"
-                          fill={
-                            index < (product.rating || 0)
-                              ? "currentColor"
-                              : "transparent"
-                          }
+                          fill={index < (product.rating || 0) ? "currentColor" : "transparent"}
                         />
                       ))}
                       <span className="text-sm text-gray-500 ml-1">

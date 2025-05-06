@@ -1,9 +1,9 @@
-import React from "react";
-import ProductCard from "./ProductCard";
-import Products from "../../assets/data/Product";
+import React from 'react';
+import ProductCard from './ProductCard';
+import Products from '../../assets/data/Product';
 
 const ProductList = () => {
-  const products = Products();
+    const products = Products();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-[20px] items-center justify-center">

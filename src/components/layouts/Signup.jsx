@@ -13,15 +13,13 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const url = "https://bloomm-backend-2.onrender.com/register";
+  const url = "http://127.0.0.1:8080/";
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!first_name || !email || !password || !address) {
-      setError(
-        "All fields (First Name, Email, Password, Address) are required."
-      );
+      setError("All fields (First Name, Email, Password, Address) are required.");
       return;
     }
 
@@ -36,12 +34,11 @@ function Signup() {
       });
 
       alert(res.data.message);
-      toggle(true);
+      toggle(true); // Switch back to login view
       setError(null);
     } catch (error) {
       setError(
-        error.response?.data?.message ||
-          "Registration failed. Please try again."
+        error.response?.data?.message || "Registration failed. Please try again."
       );
     }
   };
@@ -60,9 +57,9 @@ function Signup() {
       localStorage.setItem("token", res.data.access_token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      if (first_name === "Justin" && password === "Justin") {
+      if (first_name === "admin" && password === "liverpoolfc") {
         alert("Admin login successful!");
-        navigate("/dashboard");
+        navigate("/admin");
       } else {
         alert("Login successful!");
         navigate("/account");
@@ -93,9 +90,7 @@ function Signup() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit">Login</Button>
-          <Paragraph onClick={() => toggle(false)}>
-            Don't have an account? Sign up
-          </Paragraph>
+          <Paragraph onClick={() => toggle(false)}>Don't have an account? Sign up</Paragraph>
         </Form>
       ) : (
         <Form onSubmit={handleRegister}>
@@ -138,9 +133,7 @@ function Signup() {
             onChange={(e) => setPhone_number(e.target.value)}
           />
           <Button type="submit">Register</Button>
-          <Paragraph onClick={() => toggle(true)}>
-            Already have an account? Login
-          </Paragraph>
+          <Paragraph onClick={() => toggle(true)}>Already have an account? Login</Paragraph>
         </Form>
       )}
     </Container>

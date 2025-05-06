@@ -4,25 +4,24 @@ import { useNavigate } from "react-router-dom";
 
 function ContactInformationForm() {
   const [customers, setCustomer] = useState({});
-  const navigate = useNavigate();
-  const url = "https://bloomm-backend-2.onrender.com/";
+  const navigate = useNavigate(); 
+  const url = "http://127.0.0.1:8080/";
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-
+    const userData = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    
     if (!userData || !token) {
-      navigate("/");
+      navigate('/');
     } else {
       setCustomer(JSON.parse(userData));
 
-      axios
-        .get(`${url}customers`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .catch((error) => {
-          console.error("Error fetching customer data:", error);
-        });
+      axios.get(`${url}customers`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .catch(error => {
+        console.error("Error fetching customer data:", error);
+      });
     }
   }, [navigate]);
 
@@ -40,7 +39,7 @@ function ContactInformationForm() {
           <span className="font-medium">Name:</span> {customers.first_name}
         </p>
         <p className="text-gray-600">
-          <span className="font-medium">Email:</span> {customers.email}
+          <span className="font-medium">Email:</span> {customers.email }
         </p>
         <p className="text-gray-600">
           <span className="font-medium">Phone:</span> {customers.phone_number}
